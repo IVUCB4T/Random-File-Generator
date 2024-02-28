@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random File Generator</title>
+<style>
+    body {
+    background-color: #333;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1, button {
+    font-weight: bold;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+    
+</style>
+</head>
+<body>
+<h1><b><strong>Random File Generator</strong></b></h1>
+<button id="generate"><h2>Generate 1 MB File</h2></button>
+<script>
+    document.getElementById('generate').addEventListener('click', function() {
+        // Generate random content for a 1 MB file
+        let content = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        const fileSize = 1024 * 1024; // 1 MB in bytes
+
+        while (content.length < fileSize) {
+            content += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        // Create a Blob object with the random content
+        let blob = new Blob([content], {type: 'text/plain'});
+
+        // Create a temporary link element to trigger the download
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Random_File_Generator.txt';
+
+        // Trigger the download
+        link.click();
+    });
+</script>
+</body>
+</html>
